@@ -1,0 +1,211 @@
+# AI TUI - Makefile
+
+.PHONY: help build test clean install release benchmark docker
+
+# Default target
+help:
+	@echo "AI TUI - Advanced Terminal Interface"
+	@echo ""
+	@echo "Available targets:"
+	@echo "  build      - Build the AI TUI application"
+	@echo "  test       - Run all tests"
+	@echo "  test-unit - Run unit tests only"
+	@echo "  test-int  - Run integration tests only"
+	@echo "  test-perf - Run performance tests only"
+	@echo "  test-edge - Run edge case tests only"
+	@echo "  benchmark  - Run performance benchmarks"
+	@echo "  clean     - Clean build artifacts"
+	@echo "  install   - Install to system"
+	@echo "  release   - Create release builds"
+	@echo "  docker    - Build Docker image"
+	@echo "  lint      - Run code linting"
+	@echo "  fmt        - Format code"
+	@echo "  deps       - Update dependencies"
+	@echo "  docs       - Generate documentation"
+	@echo "  run        - Run the application"
+
+# Build the application
+build:
+	@echo "Building AI TUI..."
+	go build -o ai-tui main_ai_tui.go
+	@echo "Build complete: ./ai-tui"
+
+# Production build
+build-prod:
+	@echo "Building production AI TUI..."
+	go build -ldflags="-s -w" -o ai-tui main_ai_tui.go
+	@echo "Production build complete: ./ai-tui"
+
+# Run all tests
+test:
+	@echo "Running all tests..."
+	go test -v -cover ./...
+
+# Run unit tests
+test-unit:
+	@echo "Running unit tests..."
+	go test -v -cover logging_test.go main_ai_tui.go
+	go test -v -cover animation_test.go main_ai_tui.go
+	go test -v -cover ui_test.go main_ai_tui.go
+
+# Run integration tests
+test-int:
+	@echo "Running integration tests..."
+	go test -v -cover integration_test.go main_ai_tui.go
+
+# Run performance tests
+test-perf:
+	@echo "Running performance tests..."
+	go test -v -cover performance_test.go main_ai_tui.go
+
+# Run edge case tests
+test-edge:
+	@echo "Running edge case tests..."
+	go test -v -cover edge_case_test.go main_ai_tui.go
+
+# Run benchmarks
+benchmark:
+	@echo "Running performance benchmarks..."
+	go test -bench=. -v ./...
+
+# Clean build artifacts
+clean:
+	@echo "Cleaning build artifacts..."
+	rm -f ai-tui
+	rm -f ai-tui-*
+	rm -f *.test
+	rm -f coverage.out
+	rm -rf .ai-tui-data
+	@echo "Clean complete"
+
+# Install to system
+install: build
+	@echo "Installing AI TUI to /usr/local/bin..."
+	sudo cp ai-tui /usr/local/bin/
+	@echo "Installation complete"
+
+# Create release builds
+release:
+	@echo "Creating release builds..."
+	
+	# Linux AMD64
+	GOOS=linux GOARCH=amd64 go build -ldflags="-s -w" -o ai-tui-linux-amd64 main_ai_tui.go
+	
+	# Linux ARM64
+	GOOS=linux GOARCH=arm64 go build -ldflags="-s -w" -o ai-tui-linux-arm64 main_ai_tui.go
+	
+	# macOS AMD64
+	GOOS=darwin GOARCH=amd64 go build -ldflags="-s -w" -o ai-tui-darwin-amd64 main_ai_tui.go
+	
+	# macOS ARM64 (Apple Silicon)
+	GOOS=darwin GOARCH=arm64 go build -ldflags="-s -w" -o ai-tui-darwin-arm64 main_ai_tui.go
+	
+	# Windows AMD64
+	GOOS=windows GOARCH=amd64 go build -ldflags="-s -w" -o ai-tui-windows-amd64.exe main_ai_tui.go
+	
+	@echo "Release builds created:"
+	@ls -la ai-tui-*
+
+# Build Docker image
+docker:
+	@echo "Building Docker image..."
+	docker build -t ai-tui:latest .
+	@echo "Docker image built: ai-tui:latest"
+
+# Run code linting
+lint:
+	@echo "Running code linting..."
+	golangci-lint run ./...
+	@echo "Linting complete"
+
+# Format code
+fmt:
+	@echo "Formatting code..."
+	go fmt ./...
+	@echo "Code formatted"
+
+# Update dependencies
+deps:
+	@echo "Updating dependencies..."
+	go mod tidy
+	go mod download
+	@echo "Dependencies updated"
+
+# Generate documentation
+docs:
+	@echo "Generating documentation..."
+	@echo "Documentation generation not yet implemented"
+	@echo "See docs/ directory for current documentation"
+
+# Run the application
+run: build
+	@echo "Running AI TUI..."
+	./ai-tui
+
+# Development run (with debug)
+dev:
+	@echo "Running AI TUI in development mode..."
+	go run main_ai_tui.go
+
+# Quick test and build
+check: test build
+	@echo "Quick check complete - tests pass and build successful"
+
+# Continuous integration target
+ci: deps lint test build
+	@echo "CI pipeline complete"
+
+# Create release package
+package: release
+	@echo "Creating release packages..."
+	mkdir -p release
+	cp ai-tui-* release/ 2>/dev/null || true
+	cp AI_TUI_*.md release/ 2>/dev/null || true
+	cp LICENSE release/ 2>/dev/null || true
+	@echo "Release package created in ./release/"
+
+# Show version
+version:
+	@echo "AI TUI Version: 1.0.0"
+	@echo "Go Version: $(shell go version)"
+
+# Show project info
+info:
+	@echo "AI TUI - Advanced Terminal Interface"
+	@echo "==============================="
+	@echo "Go Version: $(shell go version)"
+	@echo "Build Target: $(shell go env GOOS)/$(shell go env GOARCH)"
+	@echo "Module: $(shell go list -m)"
+	@echo "Dependencies: $(shell go list -m all | wc -l)"
+
+# Quick development setup
+setup: deps fmt
+	@echo "Development setup complete"
+	@echo "Run 'make dev' to start development"
+
+# Full test suite with coverage
+test-coverage:
+	@echo "Running tests with coverage..."
+	go test -v -coverprofile=coverage.out ./...
+	go tool cover -html=coverage.out -o coverage.html
+	@echo "Coverage report generated: coverage.html"
+
+# Security scan
+security:
+	@echo "Running security scan..."
+	gosec ./...
+	@echo "Security scan complete"
+
+# Performance profiling
+profile:
+	@echo "Running with profiling..."
+	go run -cpuprofile=cpu.prof -memprofile=mem.prof main_ai_tui.go
+	@echo "Profiling files generated: cpu.prof, mem.prof"
+
+# Clean all generated files
+clean-all: clean
+	@echo "Cleaning all generated files..."
+	rm -f coverage.out coverage.html
+	rm -f cpu.prof mem.prof
+	rm -rf release/
+	@echo "Deep clean complete"
