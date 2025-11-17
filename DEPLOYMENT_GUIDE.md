@@ -1,8 +1,8 @@
-# AI TUI - Deployment Guide
+# Qwen Code - Deployment Guide
 
 ## 📋 **Deployment Overview**
 
-AI TUI supports multiple deployment methods for different use cases, from local installation to containerized deployments and distribution packages.
+Qwen Code supports multiple deployment methods for different use cases, from local installation to containerized deployments and distribution packages. This guide covers deployment for the complete Qwen Code ecosystem including CLI tools, VS Code extension, AI agents, and TUI components.
 
 ## 🚀 **Distribution Methods**
 
@@ -10,6 +10,7 @@ AI TUI supports multiple deployment methods for different use cases, from local 
 
 - **Target Users**: End users who want ready-to-use binaries
 - **Platforms**: Linux (amd64/arm64), macOS (amd64/arm64), Windows (amd64)
+- **Components**: CLI tools, TUI interface, AI agent system
 - **Delivery**: GitHub releases with automatic CI/CD
 
 ### **2. Package Manager Distribution**
@@ -27,8 +28,8 @@ AI TUI supports multiple deployment methods for different use cases, from local 
 ### **4. Source Distribution**
 
 - **Target Users**: Developers, custom builds
-- **Format**: Go source code with build instructions
-- **Delivery**: GitHub repository
+- **Format**: Multi-language source (Go, TypeScript, Python) with build instructions
+- **Delivery**: GitHub repository with monorepo structure
 
 ## 📦 **Binary Distribution**
 
@@ -321,7 +322,7 @@ ai-tui:
 
 ```yaml
 # .github/workflows/deploy.yml
-name: Deploy AI TUI
+name: Deploy Qwen Code
 
 on:
   push:
@@ -626,13 +627,29 @@ Successful deployment when:
 
 ---
 
-**Deployment Status**: 🟢 Production Ready  
-**Supported Platforms**: Linux, macOS, Windows  
-**Container Support**: Docker, Kubernetes  
-**Package Managers**: Homebrew, Snap, Chocolatey
+## 🎯 **Deployment Success Criteria**
+
+Successful deployment when:
+
+1. ✅ **Application Starts**: All components start without errors
+2. ✅ **Features Work**: CLI, TUI, VS Code extension, and AI agents function correctly
+3. ✅ **Performance Meets**: Meets performance targets (<200ms AI response time)
+4. ✅ **Security Applied**: Security measures and access controls in place
+5. ✅ **Monitoring Active**: Health checks and monitoring working
+6. ✅ **Documentation Available**: Users can access comprehensive documentation
+7. ✅ **Integration Works**: Multi-agent system and IDE integration functional
 
 ---
 
-**Last Updated**: 2025-11-15  
-**Maintained By**: DevOps Team  
+**Deployment Status**: 🟢 Production Ready  
+**Supported Platforms**: Linux, macOS, Windows  
+**Container Support**: Docker, Kubernetes  
+**Package Managers**: Homebrew, Snap, Chocolatey  
+**IDE Integration**: VS Code Extension  
+**AI Components**: Multi-agent system with CLI and TUI interfaces
+
+---
+
+**Last Updated**: 2025-11-17  
+**Maintained By**: Qwen Code DevOps Team  
 **Version**: 1.0.0
