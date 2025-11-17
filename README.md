@@ -11,7 +11,7 @@
 
 **AI-powered command-line workflow tool for developers**
 
-[Installation](#installation) • [Quick Start](#quick-start) • [Features](#key-features) • [Documentation](./docs/) • [Contributing](./CONTRIBUTING.md)
+[Installation](#installation) • [Quick Start](#quick-start) • [Features](#key-features) • [Documentation](#documentation) • [Contributing](./CONTRIBUTING.md)
 
 </div>
 
@@ -402,6 +402,36 @@ qwen
 See [CONTRIBUTING.md](./CONTRIBUTING.md) to learn how to contribute to the project.
 
 For detailed authentication setup, see the [authentication guide](./docs/cli/authentication.md).
+
+## Documentation
+
+Qwen Code includes comprehensive documentation for all users and contributors:
+
+### 📚 **Essential Documents**
+
+- **[USAGE_AND_PROCEDURES.md](USAGE_AND_PROCEDURES.md)** - Complete usage guide and procedures
+- **[features.md](features.md)** - Detailed feature documentation and examples
+- **[RULES.md](RULES.md)** - Project rules, standards, and guidelines
+- **[DOCUMENTATION_GUIDE.md](DOCUMENTATION_GUIDE.md)** - How to use all documentation effectively
+
+### 🛠️ **Development Documentation**
+
+- **[development.md](development.md)** - Development setup and procedures
+- **[SRS.md](SRS.md)** - Software Requirements Specification
+- **[tasks.md](tasks.md)** - Task management procedures
+- **[journal.md](journal.md)** - Session logging and tracking
+
+### 🤖 **AI Agent Documentation**
+
+- **[agents.md](agents.md)** - AI agent guidelines and protocols
+- **[project_summary.md](project_summary.md)** - Project overview and status
+
+### 📖 **How to Use Documentation**
+
+1. **New Users**: Start with [USAGE_AND_PROCEDURES.md](USAGE_AND_PROCEDURES.md)
+2. **Developers**: Read [development.md](development.md) and [RULES.md](RULES.md)
+3. **AI Agents**: Follow [agents.md](agents.md) and [RULES.md](RULES.md)
+4. **Complete Guide**: See [DOCUMENTATION_GUIDE.md](DOCUMENTATION_GUIDE.md)
 
 ## Troubleshooting
 
